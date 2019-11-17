@@ -1,0 +1,3 @@
+.vscode
+*.py
+!sunset_notify.py
