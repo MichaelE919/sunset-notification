@@ -1,7 +1,6 @@
 import os
 import sched
 import time as tm
-import pytz
 from datetime import date, datetime, time, timedelta
 
 import requests
@@ -25,7 +24,6 @@ soup = BeautifulSoup(sun, 'html.parser')
 
 sun_today = soup.find('span', {'class': 'sunset swap'})
 
-central = pytz.timezone('US/Central')
 now = datetime.now()
 
 year = now.year
