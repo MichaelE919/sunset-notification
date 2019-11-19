@@ -1,6 +1,7 @@
 import os
 import sched
 import time as tm
+import pytz
 from datetime import date, datetime, time, timedelta
 
 import requests
@@ -24,7 +25,8 @@ soup = BeautifulSoup(sun, 'html.parser')
 
 sun_today = soup.find('span', {'class': 'sunset swap'})
 
-now = datetime.now()
+central = pytz.timezone('US/Central')
+now = datetime.now(tz=central)
 
 year = now.year
 month = now.month
@@ -32,11 +34,11 @@ day = now.day
 hour = int(str(sun_today.contents[3])[-13:-12])
 mins = int(str(sun_today.contents[3])[-11:-9])
 
-sunset_time = time(hour=hour+12, minute=mins)
+sunset_time = time(hour=hour+12, minute=mins, tzinfo=central)
 
-delta = timedelta(minutes=5)
+delta = timedelta(hours=3)
 
-msg_time = (datetime.combine(date(year, month, day), sunset_time) - delta).timestamp()
+msg_time = (datetime.combine(date(year, month, day), sunset_time) + delta).timestamp()
 
 str_time = sunset_time.strftime('%I:%M %p').lstrip('0')
 
