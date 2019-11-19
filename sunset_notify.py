@@ -26,7 +26,7 @@ soup = BeautifulSoup(sun, 'html.parser')
 sun_today = soup.find('span', {'class': 'sunset swap'})
 
 central = pytz.timezone('US/Central')
-now = datetime.now(tz=central)
+now = datetime.now()
 
 year = now.year
 month = now.month
@@ -34,9 +34,9 @@ day = now.day
 hour = int(str(sun_today.contents[3])[-13:-12])
 mins = int(str(sun_today.contents[3])[-11:-9])
 
-sunset_time = time(hour=hour+12, minute=mins, tzinfo=central)
+sunset_time = time(hour=hour+12, minute=mins)
 
-delta = timedelta(hours=3)
+delta = timedelta(hours=5, minutes=55)
 
 msg_time = (datetime.combine(date(year, month, day), sunset_time) + delta).timestamp()
 
