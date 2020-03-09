@@ -34,7 +34,12 @@ mins = int(str(sun_today.contents[3])[-11:-9])
 
 sunset_time = time(hour=hour+12, minute=mins)
 
-delta = timedelta(hours=5, minutes=59)
+if tm.localtime().tm_isdst:
+    time_diff = 4
+else:
+    time_diff = 5
+
+delta = timedelta(hours=time_diff, minutes=59)
 
 msg_time = (datetime.combine(date(year, month, day), sunset_time) + delta).timestamp()
 
