@@ -34,14 +34,9 @@ mins = int(str(sun_today.contents[3])[-11:-9])
 
 sunset_time = time(hour=hour+12, minute=mins)
 
-if tm.localtime().tm_isdst:
-    time_diff = 4
-else:
-    time_diff = 5
+delta = timedelta(minutes=1)
 
-delta = timedelta(hours=time_diff, minutes=59)
-
-msg_time = (datetime.combine(date(year, month, day), sunset_time) + delta).timestamp()
+msg_time = (datetime.combine(date(year, month, day), sunset_time) - delta).timestamp()
 
 str_time = sunset_time.strftime('%I:%M %p').lstrip('0')
 
